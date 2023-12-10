@@ -44,3 +44,27 @@ alter table employee_payroll add gender char;
 update employee_payroll set gender='M' where id='1';
 
 select * from employee_payroll;
+
+alter table employee_payroll add department varchar(200) not null;
+
+alter table employee_payroll
+add basic_pay int,
+add deductions int,
+add taxable_pay int,
+add income_tax int,
+add net_pay int;
+
+insert into employee_payroll
+(name,salary,start_date,gender,phone,address,department,basic_pay,deductions,taxable_pay,income_tax,net_pay)
+values
+('Terissa',20000,'2020-12-08','F','6768690485','hsdhjkwnfdsj','Sales',10000,2000,1000,1200,15000),
+('Terissa',20000,'2020-12-08','F','6768690485','hsdhjkwnfdsj','Marketing',15000,1000,2000,1200,20000);
+
+select * from employee_payroll;
+
+create table employee_department (dept_id int auto_increment primary key,emp_id int,foreign key(emp_id) references employee_payroll(id));
+
+alter table employee_payroll drop column department;
+
+alter table employee_payroll add dept_id int after address,
+add foreign key(dept_id) references employee_department(dept_id);
